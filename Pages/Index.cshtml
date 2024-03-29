@@ -1,0 +1,70 @@
+﻿@page
+@model IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject CRMDBContext _context
+@inject ApplicationDbContext _db
+@inject SignInManager<Jovera.Models.ApplicationUser> SignInManager
+@inject UserManager<Jovera.Models.ApplicationUser> UserManager
+@Html.AntiForgeryToken()
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+    ViewData["Title"] = "Home page";
+   
+}
+<div role="main" class="main">
+
+
+    @Html.Partial("Public/Partials/_PublicSlider")
+
+    @Html.Partial("Public/Partials/_PublicIntro")
+
+    @Html.Partial("Public/Partials/_PublicFlow")
+
+    @*@Html.Partial("Public/Partials/_PublicVideo")*@
+
+    @Html.Partial("Public/Partials/_PublicFeatures")
+   
+  
+
+
+    @Html.Partial("Public/Partials/_PublicCounts")
+
+   
+
+
+
+    @Html.Partial("Public/Partials/_PublicAffiliate")
+
+
+    @Html.Partial("Public/Partials/_PublicContact")
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

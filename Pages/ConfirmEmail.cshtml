@@ -1,0 +1,39 @@
+﻿@page
+@model Jovera.Pages.ConfirmEmailModel
+@{
+}
+<div role="main" class="main">
+
+    <section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url(public/img/page-header/page-header-services.jpg);">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-12 align-self-center p-static order-2 text-center">
+                    <h1 class="text-10"><strong>@sharedResource["Confirm Email"]</strong></h1>
+                </div>
+                <div class="col-md-12 align-self-center order-1">
+                    <ul class="breadcrumb breadcrumb-light d-block text-center">
+                        <li><a href="/Index">@sharedResource["Home"]</a></li>
+                        <li class="active">@sharedResource["Confirm Email"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+	<div class="row">
+		<div class="col">
+			<hr class="solid my-5">
+		</div>
+	</div>
+	<section class="http-error py-0">
+		<div class="row justify-content-center py-3">
+			<div class="col-6 text-center">
+				<div class="http-error-main">
+					<h2 class="mb-0">Confirm Your Email</h2>
+					
+					<p class="text-3 my-4 line-height-8">@sharedResource["check your email and click to the link in Email Message "]</p>
+				</div>
+				<a href="/Login" class="btn btn-primary btn-rounded btn-xl font-weight-semibold text-2 px-4 py-3 mt-1 mb-4"><i class="fas fa-angle-left pe-3"></i>@sharedResource["Back to Login"]</a>
+			</div>
+		</div>
+	</section>
+</div>

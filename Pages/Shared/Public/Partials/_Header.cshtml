@@ -1,0 +1,150 @@
+﻿@using Jovera.Models
+@inject CRMDBContext _context
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@{
+
+    var contacts = _context.SoicialMidiaLinks.FirstOrDefault();
+    var locale = Context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+    var currentuser = await UserManager.GetUserAsync(User);
+   }
+<header id="header" class="header-transparent header-semi-transparent header-semi-transparent-dark" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': false, 'stickyStartAt': 53, 'stickySetTop': '-53px'}">
+    <div class="header-body border-top-0 bg-dark box-shadow-none">
+        <div class="header-top header-top-borders header-top-light-2-borders">
+            <div class="container h-100">
+                <div class="header-row h-100">
+                    <div class="header-column justify-content-start">
+                        <div class="header-row">
+                            <nav class="header-nav-top">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item nav-item-borders py-2 d-none d-sm-inline-flex">
+                                        <span class="ps-0"><i class="far fa-dot-circle text-4 text-color-primary" style="top: 1px;"></i>@*@contacts.Address*@United Arab Emirates</span>
+                                    </li>
+                                    <li class="nav-item nav-item-borders py-2">
+                                        <a href="tel:+971542540376" class="text-color-hover-light"><i class="fab fa-whatsapp text-4 text-color-primary" style="top: 0;"></i>@*@contacts.ContactPhone1*@ +971542540376</a>
+                                    </li>
+                                    <li class="nav-item nav-item-borders py-2 d-none d-md-inline-flex">
+                                        <a @*href="mailto:@contacts.ContactMail"*@ href="mailto:Admin@info.com" class="text-color-hover-light"><i class="far fa-envelope text-4 text-color-primary" style="top: 1px;"></i> @*@contacts.ContactMail*@Admin@Info.com</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="header-column justify-content-end">
+                        <div class="header-row">
+                            <nav class="header-nav-top">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item nav-item-borders py-2">
+
+                                        @if (currentuser == null)
+                                        {
+                                            <i class="fa fa-user text-4 text-color-primary" style="top: 0;"></i>
+                                            <a href="/Login" class="text-color-hover-light">
+                                                @sharedResource["Sign In"]
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                          @*  <a asp-page="UserSites" class="text-color-hover-light">
+                                                @sharedResource["My Sites"]
+                                            </a>*@
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                <i class="fa fa-user text-4 text-color-primary" style="top: 0;"></i>
+                                                <a asp-area="CRM/Index" asp-page="Index" class="text-color-hover-light">
+                                                    @sharedResource["Admin Dashboard"]
+                                                </a>
+                                            }
+                                            else if (User.IsInRole("Store"))
+                                            {
+                                                <i class="fa fa-user text-4 text-color-primary" style="top: 0;"></i>
+                                                <a href="/Store/Index" class="text-color-hover-light">
+                                                    @sharedResource["Store Dashboard"]
+                                                </a>
+
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-user text-4 text-color-primary" style="top: 0;"></i>
+                                                <a asp-page="UserProfile" class="text-color-hover-light">
+                                                    @sharedResource["User Profile"]
+                                                </a>
+                                            }
+
+                                            <i class="fa fa-sign-out-alt text-4 text-color-primary" style="top: 0;"></i> <a asp-controller="Setting" asp-action="Logout" class="text-color-hover-light">
+                                                @sharedResource["Sign Out"]
+                                            </a>
+                                        }
+
+                                    </li>
+
+                                    <li class="nav-item nav-item-borders py-2 pe-0 dropdown">
+                                        @{
+                                            //English
+                                            if (BrowserCulture == "en-US")
+                                            {
+                                                <a class="nav-link text-color-hover-light show" href="~/Public/#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="~/Public/img/blank.gif" class="flag flag-us" alt="English" /> English
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+
+                                            }
+                                            //Arabic
+                                            else
+                                            {
+                                                <a class="nav-link text-color-hover-light show" href="~/Public/#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="~/Public/img/blank.gif" class="flag flag-kw" alt="English" /> عربي
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+                                            }
+                                        }
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                                            <a asp-controller="Setting" asp-action="ChangeLanguage" asp-route-culture="en-US" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item"><img src="~/Public/img/blank.gif" class="flag flag-us" alt="English" /> English</a>
+                                            <a asp-controller="Setting" asp-action="ChangeLanguage" asp-route-culture="ar-EG" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item"><img src="~/Public/img/blank.gif" class="flag flag-kw" alt="عربي" /> عربي</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-container header-container-height-sm container">
+            <div class="header-row">
+                <div class="header-column">
+                    <div class="header-row">
+                        <div class="header-logo">
+                            <a href="/">
+                                <img alt="Porto" height="42" data-sticky-width="82" data-sticky-height="40" src="~/images/JoveraLogo.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-column justify-content-end">
+                    <div class="header-row">
+                        <div class="header-nav header-nav-links header-nav-dropdowns-dark header-nav-light-text order-2 order-lg-1">
+                            <div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
+                                <nav class="collapse">
+                                    <ul class="nav nav-pills" id="mainNav">
+                                        <li><a class="dropdown-item dropdown-toggle active current-page-active" href="/">@sharedResource["Home"]<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a class="dropdown-item dropdown-toggle" asp-page="Affilates">@sharedResource["Affiliate Program"]<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a class="dropdown-item dropdown-toggle" asp-page="AboutUs">@sharedResource["About Us"]<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a class="dropdown-item dropdown-toggle" href="/#contact">@sharedResource["Contact Us"]<i class="fas fa-chevron-down"></i></a></li>
+                                      
+                                    </ul>
+                                </nav>
+                            </div>
+                            <a href="/Register" class="btn btn-xl btn-rounded btn-primary text-1 ms-3 font-weight-bold text-uppercase" style="padding: 0.6rem 1rem; !important;">@sharedResource["Get Started"]</a>
+                            <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
