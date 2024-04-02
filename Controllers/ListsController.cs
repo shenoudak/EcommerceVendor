@@ -89,5 +89,26 @@ namespace Jovera.Controllers
             _context.SaveChanges();
             return id;
         }
+        [HttpGet]
+        public object GetImagesForStoreSampleItem([FromQuery] int id)
+        {
+            var productimages = _context.StoreProfileImages.Where(p => p.StoreId == id)
+                                .Select(i => new
+                                {
+                                    i.StoreProfileImageId,
+                                    i.ImageName,
+                                    i.StoreId
+                                });
+
+            return productimages;
+        }
+        [HttpPost]
+        public async Task<int> RemoveStoreSampleImageById([FromQuery] int id)
+        {
+            var itemPic = await _context.StoreProfileImages.FirstOrDefaultAsync(p => p.StoreProfileImageId == id);
+            _context.StoreProfileImages.Remove(itemPic);
+            _context.SaveChanges();
+            return id;
+        }
     }
 }

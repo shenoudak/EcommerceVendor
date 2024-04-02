@@ -4,6 +4,7 @@ using Jovera.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jovera.Migrations.CRMDB
 {
     [DbContext(typeof(CRMDBContext))]
-    partial class CRMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240330084926_addUpdateStoreProfileStatusMig")]
+    partial class addUpdateStoreProfileStatusMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -427,9 +429,6 @@ namespace Jovera.Migrations.CRMDB
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StoreId"), 1L, 1);
 
-                    b.Property<string>("AccountName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("AddingTax")
                         .HasColumnType("bit");
 
@@ -438,9 +437,6 @@ namespace Jovera.Migrations.CRMDB
 
                     b.Property<double>("Balance")
                         .HasColumnType("float");
-
-                    b.Property<string>("BankName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CatagoriesTypes")
                         .HasColumnType("nvarchar(max)");
@@ -472,16 +468,7 @@ namespace Jovera.Migrations.CRMDB
                     b.Property<string>("Lng")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OtherCatagories")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone2")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RejectProfileReason")
@@ -501,9 +488,6 @@ namespace Jovera.Migrations.CRMDB
 
                     b.Property<int>("StoreProfileStatusId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TaxingNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TradeName")
                         .HasColumnType("nvarchar(max)");
@@ -544,11 +528,11 @@ namespace Jovera.Migrations.CRMDB
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StoreProfileStatusId"), 1L, 1);
 
-                    b.Property<string>("StatusArabicTitle")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StatusArabicTitle")
+                        .HasColumnType("int");
 
-                    b.Property<string>("StatusEnglishTitle")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StatusEnglishTitle")
+                        .HasColumnType("int");
 
                     b.HasKey("StoreProfileStatusId");
 

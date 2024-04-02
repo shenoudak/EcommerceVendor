@@ -4,6 +4,7 @@ using Jovera.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jovera.Migrations.CRMDB
 {
     [DbContext(typeof(CRMDBContext))]
-    partial class CRMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240402093530_addNewFieldsInStroeMig")]
+    partial class addNewFieldsInStroeMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -470,9 +472,6 @@ namespace Jovera.Migrations.CRMDB
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lng")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OtherCatagories")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")

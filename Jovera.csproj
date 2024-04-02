@@ -54,6 +54,7 @@
 	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
 	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+	  <PackageReference Include="MailKit" Version="3.4.1" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10" />
 	<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts" Version="5.0.2" />
 	<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
@@ -615,6 +616,7 @@
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\Images\Category\" />
     <Folder Include="wwwroot\Images\Item\" />
+    <Folder Include="wwwroot\Images\Store\" />
   </ItemGroup>
 
 </Project>

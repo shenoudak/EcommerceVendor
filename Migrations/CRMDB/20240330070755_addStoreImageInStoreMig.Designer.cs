@@ -4,6 +4,7 @@ using Jovera.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jovera.Migrations.CRMDB
 {
     [DbContext(typeof(CRMDBContext))]
-    partial class CRMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240330070755_addStoreImageInStoreMig")]
+    partial class addStoreImageInStoreMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -427,9 +429,6 @@ namespace Jovera.Migrations.CRMDB
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StoreId"), 1L, 1);
 
-                    b.Property<string>("AccountName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("AddingTax")
                         .HasColumnType("bit");
 
@@ -438,9 +437,6 @@ namespace Jovera.Migrations.CRMDB
 
                     b.Property<double>("Balance")
                         .HasColumnType("float");
-
-                    b.Property<string>("BankName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CatagoriesTypes")
                         .HasColumnType("nvarchar(max)");
@@ -472,19 +468,7 @@ namespace Jovera.Migrations.CRMDB
                     b.Property<string>("Lng")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OtherCatagories")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RejectProfileReason")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResponsibleForSupply")
@@ -499,18 +483,10 @@ namespace Jovera.Migrations.CRMDB
                     b.Property<string>("StoreName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StoreProfileStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TaxingNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TradeName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StoreId");
-
-                    b.HasIndex("StoreProfileStatusId");
 
                     b.ToTable("Stores");
                 });
@@ -534,25 +510,6 @@ namespace Jovera.Migrations.CRMDB
                     b.HasIndex("StoreId");
 
                     b.ToTable("StoreProfileImages");
-                });
-
-            modelBuilder.Entity("Jovera.Models.StoreProfileStatus", b =>
-                {
-                    b.Property<int>("StoreProfileStatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StoreProfileStatusId"), 1L, 1);
-
-                    b.Property<string>("StatusArabicTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StatusEnglishTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StoreProfileStatusId");
-
-                    b.ToTable("StoreProfileStatuses");
                 });
 
             modelBuilder.Entity("Jovera.Models.SubCategory", b =>
@@ -661,17 +618,6 @@ namespace Jovera.Migrations.CRMDB
                         .IsRequired();
 
                     b.Navigation("SubCategory");
-                });
-
-            modelBuilder.Entity("Jovera.Models.Store", b =>
-                {
-                    b.HasOne("Jovera.Models.StoreProfileStatus", "StoreProfileStatus")
-                        .WithMany()
-                        .HasForeignKey("StoreProfileStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StoreProfileStatus");
                 });
 
             modelBuilder.Entity("Jovera.Models.StoreProfileImage", b =>

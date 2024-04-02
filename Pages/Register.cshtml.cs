@@ -167,9 +167,10 @@ namespace Jovera.Pages
 
                         //}
 
-                        store.Email = Input.UserName;
+                        store.StoreName = Input.UserName;
                         store.Email = Input.Email;
                         store.Password = Input.Password;
+                        store.StoreProfileStatusId = 1;
 
                         //Customer customer = new Customer();
 
