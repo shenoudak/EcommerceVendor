@@ -156,7 +156,7 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label asp-for="storeProfileVM.Phone1" class="form-label">
-                                                        @sharedResource["Phone1"]
+                                                        @sharedResource["Phone 1"]
                                                     </label>
                                                     <input type="tel" placeholder="@sharedResource["Enter Phone 1"]" class="form-control" asp-for="storeProfileVM.Phone1">
                                                     <span asp-validation-for="storeProfileVM.Phone1" class="text-danger"></span>
@@ -166,7 +166,7 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label asp-for="storeProfileVM.Phone2" class="form-label">
-                                                        @sharedResource["Phone2"]
+                                                        @sharedResource["Phone 2"]
                                                     </label>
                                                     <input type="tel" placeholder="@sharedResource["Enter Phone 2"]" class="form-control" asp-for="storeProfileVM.Phone2">
                                                     <span asp-validation-for="storeProfileVM.Phone2" class="text-danger"></span>
@@ -187,7 +187,7 @@
                                                             @sharedResource["Account Name"]
                                                         </label>
                                                         <input type="text" class="form-control" asp-for="storeProfileVM.AccountName"
-                                                               placeholder="Enter Account Name">
+                                                               placeholder="@sharedResource["Enter Account Name"]">
                                                         <span asp-validation-for="storeProfileVM.AccountName" class="text-danger"></span>
 
                                                     </div>
@@ -198,7 +198,7 @@
                                                             @sharedResource["Bank Name"]
                                                         </label>
                                                         <input type="text" class="form-control" asp-for="storeProfileVM.BankName"
-                                                               placeholder="Enter Bank Name">
+                                                               placeholder="@sharedResource["Enter Bank Name"]">
                                                         <span asp-validation-for="storeProfileVM.BankName" class="text-danger"></span>
 
                                                     </div>
@@ -209,7 +209,7 @@
                                                             @sharedResource["Iban"]
                                                         </label>
                                                         <input type="text" class="form-control" asp-for="storeProfileVM.IPan"
-                                                               placeholder="Enter Iban">
+                                                               placeholder=" @sharedResource["Enter Iban"]">
                                                         <span asp-validation-for="storeProfileVM.IPan" class="text-danger"></span>
 
                                                     </div>
@@ -221,37 +221,42 @@
                                             <div class="col-lg-8">
                                                 <div class="mb-3">
                                                     <label class="form-label">
-                                                        @sharedResource["Add Your Products Catagories"]
+                                                        @sharedResource["Select Your Products Catagories"]
                                                     </label>
 
 
-                                                    @*  <select class="js-example-basic-multiple" name="states[]" multiple="multiple" id="choices-multiple-remove-button">
-                                                    @foreach (var item in @Model.catagories)
-                                                    {
-                                                    if (@BrowserCulture == "en-US")
-                                                    {
-                                                    <option value="@item.SubCategoryTLEN">@item.SubCategoryTLEN</option>
-                                                    }
-                                                    else
-                                                    {
-                                                    <option value="@item.SubCategoryTLAR">@item.SubCategoryTLAR</option>
-
-                                                    }
-
-                                                    }
-                                                    </select>*@
+                                                  
 
                                                     <select name="states[]" multiple="multiple" class="form-control" id="choices-multiple-remove-button" data-choices data-choices-removeItem>
-                                                        @foreach (var item in @Model.selectedStoreCatagories)
+                                                        @if (@Model.selectedStoreCatagories!=null)
                                                         {
-                                                            <option value="@item" selected>@item</option>
+                                                            @foreach (var item in @Model.selectedStoreCatagories)
+                                                            {
+                                                                <option value="@item" selected>@item</option>
+                                                            }
                                                         }
+                                                        
 
                                                         @foreach (var item in @Model.catagories)
                                                         {
-                                                            if ((Model.selectedStoreCatagories.Contains(item.SubCategoryTLEN)) || (Model.selectedStoreCatagories.Contains(item.SubCategoryTLAR)))
+                                                            if (Model.selectedStoreCatagories!=null)
                                                             {
-                                                               
+                                                                if ((Model.selectedStoreCatagories.Contains(item.SubCategoryTLEN)) || (Model.selectedStoreCatagories.Contains(item.SubCategoryTLAR)))
+                                                                {
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (@BrowserCulture == "en-US")
+                                                                    {
+                                                                        <option value="@item.SubCategoryTLEN">@item.SubCategoryTLEN</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item.SubCategoryTLAR">@item.SubCategoryTLAR</option>
+
+                                                                    }
+                                                                }
                                                             }
                                                             else
                                                             {
@@ -265,25 +270,12 @@
 
                                                                 }
                                                             }
-                                                        }
-
-
-
-                                                        @*  @foreach (var item in @Model.catagories)
-                                                        {
-
-                                                        if (@BrowserCulture == "en-US")
-                                                        {
-                                                        <option value="@item.SubCategoryTLEN">@item.SubCategoryTLEN</option>
-                                                        }
-                                                        else
-                                                        {
-                                                        <option value="@item.SubCategoryTLAR">@item.SubCategoryTLAR</option>
 
                                                         }
 
-                                                        }
-                                                        *@
+
+
+                                                       
                                                     </select>
                                                 </div>
                                             </div>
@@ -294,7 +286,7 @@
 
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck1" checked>
-                                                        <label class="form-check-label" for="SwitchCheck1">Add Other Catagories</label>
+                                                        <label class="form-check-label" for="SwitchCheck1">@sharedResource["Add Other Catagories"]</label>
                                                     </div>
                                                 </div>
 
@@ -305,7 +297,7 @@
 
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck1">
-                                                        <label class="form-check-label" for="SwitchCheck1">Add Other Catagories</label>
+                                                        <label class="form-check-label" for="SwitchCheck1"> @sharedResource["Add Other Catagories"]</label>
                                                     </div>
                                                 </div>
                                             }
@@ -420,7 +412,7 @@
                                                         <div class="car-body">
                                                             <h4 class="mb-2">@sharedResource["Location"]</h4>
                                                             <div class="form-group row">
-                                                                <div id="map" style="height:400px;width:900px;margin:auto"></div>
+                                                                <div id="map" style="height:500px;width:1000px;margin:auto"></div>
                                                                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfsM19EfsfREOaCkPjRAVMYdTIXToo0FE&callback=initMap&v=weekly" defer></script>
 
                                                             </div>
@@ -515,9 +507,16 @@
         var markers = [];
         var uniqueId = 1;
         var latOb = document.getElementById("LatId").value;
+        if(latOb==""){
+           latOb=25.380112;
+        }
         var NlatOb = Number(latOb)
-        console.log("latOb = " + typeof (NlatOb));
         var lngOb = document.getElementById("LngId").value;
+        if (lngOb == "") {
+            lngOb=55.458249;
+            
+        }
+       
         var NlngOb = Number(lngOb)
         console.log("lngOb = " + lngOb);
         var myLatlng = { lat: NlatOb, lng: NlngOb };

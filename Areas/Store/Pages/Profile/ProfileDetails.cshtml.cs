@@ -6,6 +6,7 @@ using Jovera.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Jovera.ViewModels;
+using Jovera.ViewModel;
 
 namespace Jovera.Areas.Store.Pages.Profile
 {
@@ -18,7 +19,9 @@ namespace Jovera.Areas.Store.Pages.Profile
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _db;
         public List<string> storeCatagories { get; set; }
+        public List<string> otherCatagories { get; set; }
         [BindProperty]
+        public ChangePasswordVM changePasswordVM { get; set; }
         public Jovera.Models.Store storDetails { get; set; }
         public ProfileDetailsModel(CRMDBContext context, ApplicationDbContext db, IWebHostEnvironment hostEnvironment, IToastNotification toastNotification, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
@@ -53,8 +56,38 @@ namespace Jovera.Areas.Store.Pages.Profile
 
 
             }
+            if (storDetails.OtherCatagories != null)
+            {
+                otherCatagories = storDetails.OtherCatagories.Split(",").ToList();
+
+
+            }
 
             return Page();
+        }
+        public async Task<IActionResult> OnPost()
+        {
+            if (changePasswordVM.CurrentPassword == changePasswordVM.NewPassword)
+            {
+                ModelState.AddModelError("", "New password Must be Diffrent from Current Password..");
+                return Page();
+            }
+            if (!ModelState.IsValid)
+                return Page();
+            var user = await _userManager.GetUserAsync(User);
+            var result = await _userManager.ChangePasswordAsync(user, changePasswordVM.CurrentPassword, changePasswordVM.NewPassword);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return Page();
+            }
+            await _signInManager.RefreshSignInAsync(user);
+            _toastNotification.AddSuccessToastMessage("Password Updated Successfully");
+            return RedirectToPage("/Store/profile/ProfileDetails");
+
         }
     }
 }

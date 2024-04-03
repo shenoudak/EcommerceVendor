@@ -7,7 +7,7 @@
     var BrowserCulture = locale.RequestCulture.UICulture.ToString();
 }
 
-  <div role="main" class="main">
+<div role="main" class="main">
 
     <section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url(public/img/page-header/page-header-services.jpg);">
         <div class="container">
@@ -32,142 +32,287 @@
 
                 <div class="row justify-content-md-center">
                     <div class="col-md-9">
-                        <div class="featured-box featured-box-primary text-start mt-0">
-                            <div class="box-content">
-                                @{
-                                    if (@BrowserCulture == "en-US")
-                                    {
-                                        <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Login"]</h4>
+                        @if (@BrowserCulture == "en-US")
+                        {
+                            <div class="featured-box featured-box-primary text-start mt-0">
+                                <div class="box-content">
 
-                                    }
-                                    else
-                                    {
-                                        <h4 style="text-align:right" class="color-primary font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Login"]</h4>
+                                    <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Login"]</h4>
 
-                                    }
-                                }
-                                <form id="frmSignIn" method="post" class="needs-validation" novalidate="novalidate">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="row">
-                                        @{
-                                            if (@BrowserCulture == "en-US")
-                                            {
-                                              <div class="form-group col">
-                                            <label asp-for="Input.Email" style="translate: none; rotate: none; scale: none; transform-origin: 558px 21px 0px; transform: translate(0px); opacity: 1;" class="form-label">E-mail Address</label>
-                                            <input type="text" asp-for="Input.Email"   class="form-control form-control-lg" required="">
-                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+
+                                    <form id="frmSignIn" method="post" class="needs-validation" novalidate="novalidate">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="row">
+
+                                            <div class="form-group col">
+                                                <label asp-for="Input.Email" style="translate: none; rotate: none; scale: none; transform-origin: 558px 21px 0px; transform: translate(0px); opacity: 1;" class="form-label">@sharedResource["Email"]</label>
+                                                <input type="email" asp-for="Input.Email" class="form-control form-control-lg" required="">
+                                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                            </div>
+
+
                                         </div>
-                                            }
-                                            else
-                                            {
-                                                <div style="text-align:right" class="form-group col">
-                                                    <label asp-for="Input.Email" style="translate: none; rotate: none; scale: none; transform-origin: 558px 21px 0px; transform: translate(0px); opacity: 1;" class="form-label">@sharedResource["E-mail Address"]</label>
-                                                    <input type="text" asp-for="Input.Email" class="form-control form-control-lg" required="">
-                                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                                                </div>
+                                        <div class="row">
 
-                                            }
-                                        }
-                                        
-                                    </div>
-                                    <div class="row">
-                                        @{
-                                            if (@BrowserCulture == "en-US")
-                                            {
-                                                <div class="form-group col">
-                                                    @*<a class="float-end" href="#">(Lost Password?)</a>*@
-                                                    <label asp-for="Input.Password" class="form-label">@sharedResource["Password"]</label>
-                                                    <input asp-for="Input.Password" type="password" value="" class="form-control form-control-lg" required="">
-                                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div style="text-align:right" class="form-group col">
-                                                    @*<a class="float-end" href="#">(Lost Password?)</a>*@
-                                                    <label asp-for="Input.Password" class="form-label">@sharedResource["Password"]</label>
-                                                    <input asp-for="Input.Password" type="password" value="" class="form-control form-control-lg" required="">
-                                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                                </div>
+                                            <div class="form-group col">
+                                                @*<a class="float-end" href="#">(Lost Password?)</a>*@
+                                                <label asp-for="Input.Password" class="form-label">@sharedResource["Password"]</label>
+                                                <input asp-for="Input.Password" type="password" value="" class="form-control form-control-lg" required="">
+                                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                            </div>
 
-                                                
 
-                                            }
-                                        }
-                                        
-                                    </div>
-                                    <div class="row">
-                                        @{
-                                            if (@BrowserCulture == "en-US")
-                                            {
-                                                <div class="form-group col-lg-6">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="rememberme">
-                                                        <label for="rememberme" class="custom-control-label text-2">@sharedResource["Remember Me"]</label>
-                                                    </div>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div style="text-align:right" class="form-group col-lg-6">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="rememberme">
-                                                        <label for="rememberme" class="custom-control-label text-2">@sharedResource["Remember Me"]</label>
-                                                    </div>
-                                                </div>
-
-                                                
-                                            }
-                                        }
-
-                                       
-                                        <div class="form-group col-lg-6">
-                                            @{
-                                                if (@BrowserCulture == "en-US")
-                                                {
-                                                    <input type="submit" value=@sharedResource["Login"] class="btn btn-primary btn-modern float-end" data-loading-text="Loading...">
-
-                                                }
-                                                else
-                                                {
-                                                    <input type="submit" value=@sharedResource["Login"] class="btn btn-primary btn-modern" data-loading-text="Loading...">
-
-                                                }
-                                            }
                                         </div>
-                                        <div class="form-group col-lg-12">
-                                            @{
-                                                if (@BrowserCulture == "en-US")
-                                                {
-                                                    <h4 style="color: #777;">@sharedResource["Didn't have any account?"] <a style="color: #d24143;" href="/Register">@sharedResource["Sign Up"]</a></h4>
+                                        <div class="row">
+
+                                            <div class="form-group col-lg-12">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="rememberme">
+                                                    <label for="rememberme" class="custom-control-label text-2">@sharedResource["Remember me"]</label>
+                                                </div>
+                                            </div>
 
 
-                                                }
-                                                else
-                                                {
-                                                    <h4 style="text-align:right;color: #777;">@sharedResource["Didn't have any account?"] <a style="color: #d24143;" href="/Register">@sharedResource["Sign Up"]</a></h4>
+                                            <div class="form-group col-lg-12">
 
-                                                }
-                                            }
-                                            @{
-                                                if (@BrowserCulture == "en-US")
-                                                {
-                                                    <h4 style="color: #777;">@sharedResource["Forgot your password?"] <a style="color: #d24143;" href="/ForgetPassword">@sharedResource["Reset Password"]</a></h4>
+                                                <input type="submit" value=@sharedResource["Login"] class="btn btn-primary btn-modern float-end" data-loading-text="Loading...">
 
 
-                                                }
-                                                else
-                                                {
-                                                    <h4 style="color: #777;">@sharedResource["Forgot your password?"] <a style="color: #d24143;" href="/ForgetPassword">@sharedResource["Reset Password"]</a></h4>
+                                            </div>
 
 
-                                                }
-                                            }
+                                            <div class="form-group col-lg-12">
+
+                                                <h4 style="color: #777;">@sharedResource["Didn't have any account?"] <a style="color: #d24143;" href="/Register">@sharedResource["Sign Up"]</a></h4>
+
+
+
+                                                <h4 style="color: #777;">@sharedResource["Forgot your password?"] <a style="color: #d24143;" href="/ForgetPassword">@sharedResource["Reset Password"]</a></h4>
+
+
+
+                                            </div>
+
+
+
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
+                        }
+                        else
+                        {
+                            <div style="text-align: right !important;" class="featured-box featured-box-primary text-start mt-0">
+                                <div class="box-content">
+
+                                    <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Login"]</h4>
+
+
+
+                                    <form id="frmSignIn" method="post" class="needs-validation" novalidate="novalidate">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="row">
+
+                                            <div class="form-group col">
+                                                <label asp-for="Input.Email" style="translate: none; rotate: none; scale: none; transform-origin: 558px 21px 0px; transform: translate(0px); opacity: 1;" class="form-label">@sharedResource["Email"]</label>
+                                                <input type="email" asp-for="Input.Email" class="form-control form-control-lg" required="">
+                                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="form-group col">
+                                                @*<a class="float-end" href="#">(Lost Password?)</a>*@
+                                                <label asp-for="Input.Password" class="form-label">@sharedResource["Password"]</label>
+                                                <input asp-for="Input.Password" type="password" value="" class="form-control form-control-lg" required="">
+                                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="form-group col-lg-12">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="rememberme">
+                                                    <label for="rememberme" class="custom-control-label text-2">@sharedResource["Remember me"]</label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group col-lg-12">
+
+                                                <input type="submit" value=@sharedResource["Login"] class="btn btn-primary btn-modern float-end" data-loading-text="Loading...">
+
+
+                                            </div>
+
+
+                                            <div class="form-group col-lg-12">
+
+                                                <h4 style="color: #777;">@sharedResource["Didn't have any account?"] <a style="color: #d24143;" href="/Register">@sharedResource["Sign Up"]</a></h4>
+
+
+
+                                                <h4 style="color: #777;">@sharedResource["Forgot your password?"] <a style="color: #d24143;" href="/ForgetPassword">@sharedResource["Reset Password"]</a></h4>
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                        @* <div class="featured-box featured-box-primary text-start mt-0">
+                        <div class="box-content">
+                        @{
+                        if (@BrowserCulture == "en-US")
+                        {
+                        <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Login"]</h4>
+
+                        }
+                        else
+                        {
+                        <h4 style="text-align:right" class="color-primary font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Login"]</h4>
+
+                        }
+                        }
+                        <form id="frmSignIn" method="post" class="needs-validation" novalidate="novalidate">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                        @{
+                        if (@BrowserCulture == "en-US")
+                        {
+                        <div class="form-group col">
+                        <label asp-for="Input.Email" style="translate: none; rotate: none; scale: none; transform-origin: 558px 21px 0px; transform: translate(0px); opacity: 1;" class="form-label">@sharedResource["Email"]</label>
+                        <input type="email" asp-for="Input.Email" class="form-control form-control-lg" required="">
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
+                        }
+                        else
+                        {
+                        <div style="text-align:right" class="form-group col">
+                        <label asp-for="Input.Email" style="translate: none; rotate: none; scale: none; transform-origin: 558px 21px 0px; transform: translate(0px); opacity: 1;" class="form-label">@sharedResource["Email"]</label>
+                        <input type="email" asp-for="Input.Email" class="form-control form-control-lg" required="">
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        }
+                        }
+
+                        </div>
+                        <div class="row">
+                        @{
+                        if (@BrowserCulture == "en-US")
+                        {
+                        <div class="form-group col">
+
+                        <label asp-for="Input.Password" class="form-label">@sharedResource["Password"]</label>
+                        <input asp-for="Input.Password" type="password" value="" class="form-control form-control-lg" required="">
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        }
+                        else
+                        {
+                        <div style="text-align:right" class="form-group col">
+
+                        <label asp-for="Input.Password" class="form-label">@sharedResource["Password"]</label>
+                        <input asp-for="Input.Password" type="password" value="" class="form-control form-control-lg" required="">
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+
+
+                        }
+                        }
+
+                        </div>
+                        <div class="row">
+                        @{
+                        if (@BrowserCulture == "en-US")
+                        {
+                        <div class="form-group col-lg-12">
+                        <div class="custom-control custom-checkbox">
+                        <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="rememberme">
+                        <label for="rememberme" class="custom-control-label text-2">@sharedResource["Remember Me"]</label>
+                        </div>
+                        </div>
+                        }
+                        else
+                        {
+                        <div style="text-align:right" class="form-group col-lg-12">
+                        <div class="custom-control custom-checkbox">
+                        <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="rememberme">
+                        <label for="rememberme" class="custom-control-label text-2">@sharedResource["Remember Me"]</label>
+                        </div>
+                        </div>
+
+
+                        }
+                        }
+                        @{
+                        if (@BrowserCulture == "en-US")
+                        {
+                        <div class="form-group col-lg-12">
+
+                        <input type="submit" value=@sharedResource["Login"] class="btn btn-primary btn-modern float-end" data-loading-text="Loading...">
+
+
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="form-group col-lg-12" style="text-align:right">
+
+                        <input type="submit" value=@sharedResource["Login"] class="btn btn-primary btn-modern float-end" data-loading-text="Loading...">
+
+
+                        </div>
+                        }
+                        }
+                        @{
+                        if (@BrowserCulture == "en-US")
+                        {
+                        <div class="form-group col-lg-12">
+
+                        <h4 style="color: #777;">@sharedResource["Didn't have any account?"] <a style="color: #d24143;" href="/Register">@sharedResource["Sign Up"]</a></h4>
+
+
+
+                        <h4 style="color: #777;">@sharedResource["Forgot your password?"] <a style="color: #d24143;" href="/ForgetPassword">@sharedResource["Reset Password"]</a></h4>
+
+
+
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="form-group col-lg-12" style="text-align:right">
+
+                        <h4 style="color: #777;">@sharedResource["Didn't have any account?"] <a style="color: #d24143;" href="/Register">@sharedResource["Sign Up"]</a></h4>
+
+
+
+                        <h4 style="color: #777;">@sharedResource["Forgot your password?"] <a style="color: #d24143;" href="/ForgetPassword">@sharedResource["Reset Password"]</a></h4>
+
+
+
+                        </div>
+                        }
+                        }
+
+
+                        </div>
+                        </form>
+                        </div>
+                        </div>*@
                     </div>
                 </div>
 

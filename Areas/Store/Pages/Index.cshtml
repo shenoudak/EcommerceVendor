@@ -57,30 +57,42 @@
                 <!--end col-->
             </div>
             <!--end row-->
-            @if (@Model.storeStatus==1)
-            {
-                <div class="d-flex align-items-center gap-2 gap-lg-3" style="padding-bottom: 1rem;">
-
-
-                    <!-- Warning Alert -->
-                    <div class="alert alert-warning alert-dismissible border-2 bg-body-secondary fade show material-shadow" role="alert">
-                        <strong> Can Not Add Any Product </strong> - First <b>You Must Complete Your Profile</b> <a asp-area="Store" asp-page="/Profile/index">Complete Now</a>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="row">
+                <div class="col-xl-6 col-md-6">
+                    <div class="alert alert-danger material-shadow" role="alert">
+                        <strong> Something is very wrong! </strong> A simple <b>danger alert</b> —check it out!
                     </div>
                 </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="alert alert-danger material-shadow" role="alert">
+                        <strong> Something is very wrong! </strong> A simple <b>danger alert</b> —check it out!
+                    </div>
+                </div>
+            </div>
+            @* @if (@Model.storeStatus==1)
+            {
+            <div class="d-flex align-items-center gap-2 gap-lg-3" style="padding-bottom: 1rem;">
+
+
+            <!-- Warning Alert -->
+            <div class="alert alert-warning alert-dismissible border-2 bg-body-secondary fade show material-shadow" role="alert">
+            <strong> Can Not Add Any Product </strong> - First <b>You Must Complete Your Profile</b> <a asp-area="Store" asp-page="/Profile/index">Complete Now</a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            </div>
             }
             @if (@Model.storeStatus == 2)
             {
-                <div class="d-flex align-items-center gap-2 gap-lg-3" style="padding-bottom: 1rem;">
+            <div class="d-flex align-items-center gap-2 gap-lg-3" style="padding-bottom: 1rem;">
 
 
-                    <div class="alert alert-info alert-dismissible fade show material-shadow" role="alert">
-                        <strong> You Profile Sended To Site Admin </strong> For Revision <b>Please </b> Wait
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            }
-           
+            <div class="alert alert-info alert-dismissible fade show material-shadow" role="alert">
+            <strong> You Profile Sended To Site Admin </strong> For Revision <b>Please </b> Wait
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            </div>
+            }*@
+
 
             <div class="row">
                 <div class="col-xl-4 col-md-6">
