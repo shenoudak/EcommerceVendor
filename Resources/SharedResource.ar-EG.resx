@@ -151,7 +151,7 @@
     <value>إضافة منتجاتك</value>
   </data>
   <data name="Adding Others Images For Item" xml:space="preserve">
-    <value>فة صور اخري للمنتج</value>
+    <value>ارفاق صور اخري للمنتج</value>
   </data>
   <data name="Adding Tax" xml:space="preserve">
     <value>الضريبة المضافة</value>
@@ -348,6 +348,9 @@
   <data name="Enter new password" xml:space="preserve">
     <value>إدخل الرقم السري الجديد</value>
   </data>
+  <data name="Enter Our Selling Price" xml:space="preserve">
+    <value>إدخل سعر البيع لدينا</value>
+  </data>
   <data name="Enter Phone 1" xml:space="preserve">
     <value>إدخل رقم التليفون الاول</value>
   </data>
@@ -357,8 +360,14 @@
   <data name="Enter Product Price" xml:space="preserve">
     <value>إدخل سعر المنتج</value>
   </data>
+  <data name="Enter Quantity" xml:space="preserve">
+    <value>إدخل الكمية</value>
+  </data>
   <data name="Enter Responsible Name For Supply" xml:space="preserve">
     <value> إدخل اسم المسئول عن التوريد</value>
+  </data>
+  <data name="Enter Selling Price To Customer" xml:space="preserve">
+    <value>إدخل سعر البيع للعميل</value>
   </data>
   <data name="Enter Share Ration In Percentage Ex 5" xml:space="preserve">
     <value>إدخل نسبة التسعير بالمائة علي سبيل المثال 5</value>
@@ -486,11 +495,17 @@
   <data name="New Password *" xml:space="preserve">
     <value>الرقم السري الجديد *</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
   <data name="No Images" xml:space="preserve">
     <value>لا توجد صور</value>
   </data>
   <data name="No. of Orders :" xml:space="preserve">
     <value>عدد الاوردرات :</value>
+  </data>
+  <data name="Not Active" xml:space="preserve">
+    <value>غير نشط</value>
   </data>
   <data name="Number Of Customer" xml:space="preserve">
     <value>عدد العملاء</value>
@@ -513,6 +528,9 @@
   <data name="Our Amazing Features" xml:space="preserve">
     <value>مميزاتنا الرائعة</value>
   </data>
+  <data name="Our Selling Price" xml:space="preserve">
+    <value>سعر البيع لدينا</value>
+  </data>
   <data name="Page Arabic Title" xml:space="preserve">
     <value>اسم الصفحة باللغة العربية</value>
   </data>
@@ -528,6 +546,9 @@
   <data name="Password" xml:space="preserve">
     <value>الرقم السري</value>
   </data>
+  <data name="Payment information" xml:space="preserve">
+    <value>معلومات الدفع</value>
+  </data>
   <data name="Phone 1" xml:space="preserve">
     <value>رقم التليفون الاول </value>
   </data>
@@ -542,6 +563,12 @@
   </data>
   <data name="Please choose a Catagory" xml:space="preserve">
     <value>من فضلك اختر فئة</value>
+  </data>
+  <data name="Please choose a Step One" xml:space="preserve">
+    <value>من فضلك اختر الخطوه الاولي</value>
+  </data>
+  <data name="Please choose a Step Two" xml:space="preserve">
+    <value>من فضلك اختر الخطوه الثانيه</value>
   </data>
   <data name="Please enter your email address." xml:space="preserve">
     <value>من فضلك إدخل بريدك الالكتروني</value>
@@ -621,11 +648,26 @@
   <data name="Sample Photos Of Your Products" xml:space="preserve">
     <value>بعض العينات لصور المنتجات</value>
   </data>
+  <data name="Search for..." xml:space="preserve">
+    <value>بحث ...</value>
+  </data>
   <data name="Select Category" xml:space="preserve">
     <value>اختر فئة</value>
   </data>
+  <data name="Select Main Product Image" xml:space="preserve">
+    <value>اختر الصوره الرئيسية للمنتج</value>
+  </data>
+  <data name="Select Step One" xml:space="preserve">
+    <value>اختر الخطوه الاولي</value>
+  </data>
+  <data name="Select Step Two" xml:space="preserve">
+    <value>اختر الخطوه الثانيه</value>
+  </data>
   <data name="Select Your Products Catagories" xml:space="preserve">
     <value>اختر فئات منتجاتك</value>
+  </data>
+  <data name="Selling Price To Customer" xml:space="preserve">
+    <value>سعر البيع للعميل</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>إرسال</value>
@@ -659,6 +701,12 @@
   </data>
   <data name="Statistics Dashboard" xml:space="preserve">
     <value>لوحه التحكم الاحصائية</value>
+  </data>
+  <data name="Step One" xml:space="preserve">
+    <value>الخطوه الاولي</value>
+  </data>
+  <data name="Step Two" xml:space="preserve">
+    <value>الخطوه الثانية</value>
   </data>
   <data name="Steps from the beginning of registration until publishing your products" xml:space="preserve">
     <value>الخطوات من بداية التسجيل حتى نشر منتجاتك</value>
@@ -711,6 +759,9 @@
   <data name="Type" xml:space="preserve">
     <value>النوع</value>
   </data>
+  <data name="Update Product Quantity" xml:space="preserve">
+    <value>تعديل كمية المنتج</value>
+  </data>
   <data name="Vendor" xml:space="preserve">
     <value>بائع</value>
   </data>
@@ -743,6 +794,9 @@
   </data>
   <data name="Withdraw Requests Count" xml:space="preserve">
     <value>عدد طلبات السحب</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
   </data>
   <data name="Yes," xml:space="preserve">
     <value>نعم </value>

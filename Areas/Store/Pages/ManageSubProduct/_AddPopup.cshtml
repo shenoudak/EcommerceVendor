@@ -1,0 +1,107 @@
+﻿@using Jovera.Data
+@inject CRMDBContext _context
+@{
+    var firstStepList = _context.Colors.Select(e => new { e.ColorId, e.ColorTLAR,e.ColorTLEN });
+    var secondStepList = _context.Sizes.Select(e => new { e.SizeId, e.SizeTLAR,e.SizeTLEN });
+    var locale = Context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+}
+@model Jovera.Models.SubProduct
+
+<div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="AddModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">@sharedResource["Add SubProduct"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+
+            <form asp-area="Store" asp-page="/ManageSubProduct/Index" asp-page-handler="AddSubProduct" enctype="multipart/form-data" onsubmit="return validateMyForm();">
+                <div class="modal-body">
+                    <input type="text" hidden value="@Model.ItemId"  />
+                    <div class="row g-3">
+   
+
+                        <div class="col-lg-12">
+                            <label asp-for="@Model.ColorId" for="car-rental-name">@sharedResource["Step One"] <small class="text-danger">*</small></label>
+
+                            <select data-val="true" data-val-required="@sharedResource["Please choose a Step One"]" id="catId" asp-for="@Model.ColorId" class="form-select required" aria-label="Default select example" required>
+                                <option selected value="Select Type">@sharedResource["Select Step One"]</option>
+
+                                @{
+                                    if (firstStepList != null)
+                                    {
+                                        foreach (var item in @firstStepList)
+
+                                        {
+                                             if (BrowserCulture == "en-US")
+                                            {
+
+                                                <option value="@item.ColorId">@item.ColorTLEN</option>
+                                            }else{
+                                                <option value="@item.ColorId">@item.ColorTLAR</option>
+
+                                            }
+                                        }
+                                    }
+                                }
+
+                            </select>
+
+                            <span asp-validation-for="@Model.ColorId" class="text-alert"></span>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <label asp-for="@Model.SizeId" for="car-rental-name">@sharedResource["Step Two"] <small class="text-danger">*</small></label>
+
+                            <select data-val="true" data-val-required="@sharedResource["Please choose a Step Two"]" id="catId" asp-for="@Model.SizeId" class="form-select required" aria-label="Default select example" required>
+                                <option selected value="Select Type">@sharedResource["Select Step Two"]</option>
+
+                                @{
+                                    if (secondStepList != null)
+                                    {
+                                        foreach (var item in @secondStepList)
+
+                                        {
+                                            if (BrowserCulture == "en-US")
+                                            {
+
+                                                <option value="@item.SizeId">@item.SizeTLEN</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.SizeId">@item.SizeTLAR</option>
+
+                                            }
+                                        }
+                                    }
+                                }
+
+                            </select>
+
+                            <span asp-validation-for="@Model.SizeId" class="text-alert"></span>
+                        </div>
+                        <div class="col-lg-12" id="itemQuaintityId">
+                            <div>
+                                <label for="@Model.Quantity" class="form-label">@sharedResource["Quantity"]</label>
+                                <input type="number" min="1" asp-for="@Model.Quantity" id="company_name-field" class="form-control" placeholder="@sharedResource["Enter Quantity"]" />
+                                <span asp-validation-for="@Model.Quantity" class="text-danger"></span>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <!--end row-->
+                </div>
+         
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">@sharedResource["Close"]</button>
+                        <button class="btn btn-success" id="add-btn">@sharedResource["Add SubProduct"]</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

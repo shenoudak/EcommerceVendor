@@ -66,6 +66,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Store\Pages\ManageItem\AddItem.cshtml" />
+    <None Include="Areas\Store\Pages\ManageItem\EditItem.cshtml" />
+    <None Include="Areas\Store\Pages\ManageItem\Index.cshtml" />
+    <None Include="Areas\Store\Pages\ManageItem\ProductDetails.cshtml" />
     <None Include="Areas\Store\Pages\Shared\_customizer.cshtml" />
     <None Include="Areas\Store\Pages\Shared\_footer.cshtml" />
     <None Include="Areas\Store\Pages\Shared\_head_css.cshtml" />

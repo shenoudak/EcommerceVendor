@@ -51,6 +51,26 @@ namespace Jovera.Controllers
 
             return Ok(new { data });
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Item>>> GetProducts()
+        {
+            var data = await _context.Items.Select(i => new
+            {
+                ItemId = i.ItemId,
+                ItemTitleAr = i.ItemTitleAr,
+                ItemTitleEn = i.ItemTitleEn,
+                ItemImage = i.ItemImage,
+                ItemPrice = i.ItemPrice,
+                OrderIndex = i.OrderIndex,
+                IsActive = i.IsActive,
+                HasSubProduct = i.HasSubProduct,
+                
+
+            }).ToListAsync();
+
+
+            return Ok(new { data });
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
