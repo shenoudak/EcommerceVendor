@@ -89,6 +89,24 @@ namespace Jovera.Controllers
             return Ok(new { data });
         }
         [HttpGet]
+        public async Task<ActionResult<IEnumerable<SubProductStepOne>>> GetSupProductsStepOne(int itemId)
+        {
+            var data = await _context.SubProductStepOnes.Include(e=>e.StepOne).Include(e => e.Item).Where(e=>e.ItemId==itemId).Select(i => new
+            {
+                SubProductStepOneId = i.SubProductStepOneId,
+                StepOneId = i.StepOneId,
+                Icon = i.Icon,
+                StepOneTLAR = i.StepOne.StepOneTLAR,
+                StepOneTLEN = i.StepOne.StepOneTLEN,
+                ItemTitleAr = i.Item.ItemTitleAr,
+                ItemTitleEn = i.Item.ItemTitleEn,
+                IsDeleted = i.IsDeleted
+            }).ToListAsync();
+
+
+            return Ok(new { data });
+        }
+        [HttpGet]
         public object GetImagesForItem([FromQuery] int id)
         {
             var productimages = _context.ItemImages.Where(p => p.ItemId == id)

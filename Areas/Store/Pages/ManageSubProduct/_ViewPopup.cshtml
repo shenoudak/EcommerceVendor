@@ -1,0 +1,65 @@
+﻿@model Jovera.ViewModels.AddSubProductVm
+
+<div class="modal fade" id="QuickViewPoup" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">@sharedResource["Sub Product Details"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close" id="close-modal"></button>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                   
+                    <div class="table-card">
+                        <table class="table mb-0">
+                            <tbody>
+                   
+                                <tr>
+                                <td class="fw-medium">@sharedResource["QRCode"]</td>
+                                    <td  >
+                                        <img src="" id="DItemQRCodeId" width="200px" height="200px" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Step One Arabic Title"]</td>
+                                    <td id="DStepOneTLARId"></td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Step One English Title"]</td>
+                                    <td id="DStepOneTLENId"></td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Step Two Arabic Title"]</td>
+                                    <td id="DStepTwoTLARId"></td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Step Two English Title"]</td>
+                                    <td id="DStepTwoTLENId"></td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Quantity"]</td>
+                                    <td id="DQuantityId"></td>
+                                </tr>
+                               
+                               
+
+                            </tbody>
+                        </table><!--end table-->
+                    </div>
+                </div>
+            </div><!--end card-->
+            <div class="modal-footer">
+                <div class="hstack gap-2 justify-content-end">
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">
+                        @sharedResource["Close"]
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

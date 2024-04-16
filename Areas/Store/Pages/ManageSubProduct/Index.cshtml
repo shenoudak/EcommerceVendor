@@ -23,7 +23,7 @@
         <div class="card" id="List">
             <div class="card-header border-0">
                 <input type="text" asp-for="@Model.url" value="@Model.url" hidden id="UrlId" />
-               @* <input type="text" asp-for="@Model.Vendor.StoreId" value="@Model.Vendor.StoreId" hidden />*@
+                @* <input type="text" asp-for="@Model.Vendor.StoreId" value="@Model.Vendor.StoreId" hidden />*@
 
                 <div class="row g-4 align-items-center">
                     <div class="col-sm-3">
@@ -52,20 +52,21 @@
                         <table id="myTable" class="table  dt-responsive nowrap  align-middle" style="width:100%">
                             <thead class="table-light">
                                 <tr>
-                                 
-                                    
-                                 
-                                    <th data-ordering="false">@sharedResource["Arabic Title"]</th>
-                                    <th data-ordering="false">@sharedResource["English Title"]</th>
-                                    <th data-ordering="false">@sharedResource["Step One"]</th>
-                                    <th data-ordering="false">@sharedResource["Step Two"]</th>
+
+
+
+                                    <th data-ordering="false">@sharedResource["QRCode"]</th>
+                                    <th data-ordering="false">@sharedResource["Step One Arabic Title"]</th>
+                                    <th data-ordering="false">@sharedResource["Step One English Title"]</th>
+                                    <th data-ordering="false">@sharedResource["Step Two Arabic Title"]</th>
+                                    <th data-ordering="false">@sharedResource["Step Two English Title"]</th>
                                     <th data-ordering="false">@sharedResource["Quantity"]</th>
-                                  
+
                                     <th data-ordering="false">@sharedResource["Actions"]</th>
                                 </tr>
                             </thead>
 
-                                                   </table>
+                        </table>
                     </div>
 
                 </div>
@@ -79,6 +80,9 @@
 </div>
 
 <partial name="_AddPopup" model="@Model.addSubProduct" view-data="ViewData" />
+<partial name="_ViewPopup" model="@Model.addSubProduct" view-data="ViewData" />
+<partial name="_EditPopup" model="@Model.addSubProduct" view-data="ViewData" />
+<partial name="_DatchDelete" model="@Model.addSubProduct" view-data="ViewData" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -116,7 +120,7 @@
 
 
 
-    
+
     $(document).ready(function () {
         $("#myTable").DataTable({
             "proccessing": true,
@@ -133,41 +137,36 @@
                     "data": null,
                     "render": function (data, type, row, meta) {
                         let linkHtml = ` <ul class="list-inline hstack gap-2 mb-0">
-
-
+                                    <li class="list-inline-item" data-bs-toggle="tooltip"data-bs-trigger="hover" data-bs-placement="top"title=@sharedResource["View"]><a href="javascript:void(0)" data-bs-toggle="modal"><i class="ri-eye-fill align-bottom text-muted" onclick="ShowViewPopUp(${row.MiniSubProductId})" ></i></a></li>
                                 <li class="list-inline-item" data-bs-toggle="tooltip"
-                                data-bs-trigger="hover" data-bs-placement="top"
-                                title=@sharedResource["View"]>
-                                                            <a  href="/Store/ManageItem/ProductDetails?ItemId=${row.SubProductId}">
-                                <i class="ri-eye-fill align-bottom text-muted" ></i>
-                                </a>
-                                </li>
-                                <li class="list-inline-item" data-bs-toggle="tooltip"
-                                data-bs-trigger="hover" data-bs-placement="top"
-                                title=@sharedResource["Edit"]>
-                                            <a class="edit-item-btn" asp-page="../ManageItem/EditItem" asp-route-ItemId="${row.SubProductId}">
+                                                                       data-bs-trigger="hover" data-bs-placement="top"
+                                                                      title=@sharedResource["Edit"]>
+                                                                             <a href="javascript:void(0)" data-bs-toggle="modal">
 
-                                <i class="ri-pencil-fill align-bottom text-muted"></i>
-                                </a>
-                                </li>
-
-                           </ul>`
-                              
-                       
-                                                                                    
+                                                                               <i class="ri-pencil-fill align-bottom text-muted" onclick="EditSubProduct(${row.MiniSubProductId})"></i>
+                                                                       </a>
+                                                                  </li>
+                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"title=@sharedResource["Delete"]> <a class="remove-item-btn" data-bs-toggle="modal"href="javascript:void(0)" > <i class="ri-delete-bin-fill align-bottom text-muted" onclick="deleteSubProduct(${row.MiniSubProductId})"></i> </a></li></ul>`
                         return linkHtml;
                     },
                     "sortable": false
                 },
 
-              
-                
-                { "name": "ItemTitleAr", "data": "ItemTitleAr", "targets": 0, "visible": true, },
-                { "name": "ItemTitleEn", "data": "ItemTitleEn", "targets": 1 },
-                { "name": "ColorTLAR", "data": "ColorTLAR", "targets": 2 },
-                { "name": "SizeTLAR", "data": "SizeTLAR", "targets": 3 },
-                { "name": "Quantity", "data": "Quantity", "targets": 4 },
-                
+                {
+                    "name": "ItemQRCode", "data": "ItemQRCode", "targets": 0, "visible": true,
+                    "render": function (data, type, row, meta) {
+
+                        return `<img src='/${data}' alt='' class='avatar-xxs rounded-circle image_src object-cover'>`;
+
+                    }
+                },
+
+                { "name": "StepOneTLAR", "data": "StepOneTLAR", "targets": 1 },
+                { "name": "StepOneTLEN", "data": "StepOneTLEN", "targets": 2 },
+                { "name": "StepTwoTLAR", "data": "StepTwoTLAR", "targets": 3 },
+                { "name": "StepTwoTLEN", "data": "StepTwoTLEN", "targets": 4 },
+                { "name": "Quantity", "data": "Quantity", "targets": 5 },
+
 
 
 
@@ -209,7 +208,96 @@
         return true;
     }
 
-            
+
+
+
+    function EditSubProduct(MiniSubProductId) {
+        console.log(MiniSubProductId);
+        $.ajax({
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            }
+            ,
+            url: "/Store/ManageSubProduct/Index?handler=SingleMiniSubProductForEdit",
+
+            data: { "MiniSubProductId": MiniSubProductId },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+                document.getElementById("EQuantityId").value = response.Quantity
+                document.getElementById("EStepTwoId").value = response.StepTwoId
+                document.getElementById("ESubProductStepOneId").value = response.SubProductStepOneId
+                document.getElementById("EMiniSubProductId").value = response.MiniSubProductId
+
+
+                $('#showEditModal').modal('show');
+
+
+            },
+
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+
+    function ShowViewPopUp(MiniSubProductId) {
+
+
+        $.ajax({
+            type: "GET",
+            url: "/Store/ManageSubProduct/Index?handler=SingleMiniSubProductForView",
+            data: { "MiniSubProductId": MiniSubProductId },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                document.getElementById("DItemQRCodeId").src = "/" + response.ItemQRCode
+                document.getElementById("DStepOneTLARId").innerHTML = response.StepOneTLAR
+                document.getElementById("DStepOneTLENId").innerHTML = response.StepOneTLEN
+                document.getElementById("DStepTwoTLARId").innerHTML = response.StepTwoTLAR
+                document.getElementById("DStepTwoTLENId").innerHTML = response.StepTwoTLEN
+                document.getElementById("DQuantityId").innerHTML = response.Quantity
+
+
+
+
+                $('#QuickViewPoup').modal('show');
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+
+    }
+    function deleteSubProduct(MiniSubProductId) {
+
+
+        $.ajax({
+            type: "GET",
+            url: "/Store/ManageSubProduct/Index?handler=SingleMiniSubProductForDelete",
+            data: { "MiniSubProductId": MiniSubProductId },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+                document.getElementById("DeleteMiniSubProductId").value = response.MiniSubProductId
+
+                $('#deleteRecordModal').modal('show');
+
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+
 
 
 

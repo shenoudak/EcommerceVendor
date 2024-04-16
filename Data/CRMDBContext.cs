@@ -41,8 +41,10 @@ namespace Jovera.Data
         public virtual DbSet<AffiliateRatio> AffiliateRatios { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<MiniSubCategory> MiniSubCategories { get; set; }
-        public virtual DbSet<Color> Colors { get; set; }
-        public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<StepOne> StepOnes { get; set; }
+        public virtual DbSet<StepTwo> StepTwos { get; set; }
+        public virtual DbSet<SubProductStepOne> SubProductStepOnes { get; set; }
+        public virtual DbSet<MiniSubProduct> MiniSubProducts { get; set; }
         public virtual DbSet<SubProduct> SubProducts { get; set; }
         public virtual DbSet<StoreProfileImage> StoreProfileImages { get; set; }
         public virtual DbSet<StoreProfileStatus> StoreProfileStatuses { get; set; }

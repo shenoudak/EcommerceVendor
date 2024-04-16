@@ -296,7 +296,7 @@
                         if (row.HasSubProduct){
                           let NewHtml=`  <li class="list-inline-item" >
 
-                                    <a class="btn btn-success btn-sm" asp - page="../ManageItem/index" asp-route-CatagoryId="${row.ItemId}" >@sharedResource["Sub Products"] </a></li>`
+                                                <a class="btn btn-success btn-sm" href="./ManageSubProduct/AddStepOneSubProduct/index?itemId=${row.ItemId}">@sharedResource["Sub Products"] </a></li>`
                            linkHtml=linkHtml + NewHtml
                         }
                        

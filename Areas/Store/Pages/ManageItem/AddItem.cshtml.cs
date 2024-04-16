@@ -10,6 +10,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing.Imaging;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Identity;
+using Jovera.ViewModels;
 
 namespace Jovera.Areas.Store.Pages.ManageItem
 {
@@ -27,6 +28,8 @@ namespace Jovera.Areas.Store.Pages.ManageItem
 
         [BindProperty]
         public Item AddItem { get; set; }
+        [BindProperty]
+        public AddSubProductVm AddSubProductVm  { get; set; }
 
         public AddItemModel(CRMDBContext context, IWebHostEnvironment hostEnvironment,
                                             IToastNotification toastNotification,UserManager<ApplicationUser> userManager)
@@ -86,7 +89,7 @@ namespace Jovera.Areas.Store.Pages.ManageItem
                 }
                 AddItem.PublishedDate = DateTime.Now;
                 AddItem.ItemStatusId = 1;
-
+                
 
                 _context.Items.Add(AddItem);
                 _context.SaveChanges();
@@ -103,7 +106,7 @@ namespace Jovera.Areas.Store.Pages.ManageItem
 
                 _toastNotification.AddErrorToastMessage("Something went wrong");
             }
-            return Redirect("/CRM/Configurations/ManageItem/Index");
+            return Redirect("/Store/ManageItem/Index");
         }
         public void GenerateBarCode(int ItemId)
         {
@@ -130,6 +133,8 @@ namespace Jovera.Areas.Store.Pages.ManageItem
             }
             
             Event.BarCode = "Images/Item/" + uniqePictureName;
+            Event.ItemStatusId = 2;
+            Event.Quantity = 0;
             var UpdatedEvent = _context.Items.Attach(Event);
             UpdatedEvent.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();

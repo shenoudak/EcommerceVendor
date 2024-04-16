@@ -19,7 +19,7 @@ namespace Jovera.Areas.Store.Pages.ManageItem
         private readonly IWebHostEnvironment _hostEnvironment;
         [BindProperty]
         public Item ItemDetails { get; set; }
-
+        public int AvailableQuantityInStore = 0;
 
         public ProductDetailsModel(CRMDBContext context, IToastNotification toastNotification, IWebHostEnvironment hostEnvironment)
         {
@@ -34,7 +34,17 @@ namespace Jovera.Areas.Store.Pages.ManageItem
             locale = Request.HttpContext.Features.Get<IRequestCultureFeature>();
             BrowserCulture = locale.RequestCulture.UICulture.ToString();
             url = $"{this.Request.Scheme}://{this.Request.Host}";
-            ItemDetails = _context.Items.Include(e => e.ItemImages).Include(e=>e.MiniSubCategory).FirstOrDefault(a => a.ItemId == ItemId);
+            ItemDetails = _context.Items.Include(e => e.ItemImages).Include(e=>e.MiniSubCategory).Include(e => e.SubProducts).ThenInclude(e=>e.StepOne).ThenInclude(e=>e.StepTwos).FirstOrDefault(a => a.ItemId == ItemId);
+            if (ItemDetails.HasSubProduct)
+            {
+                AvailableQuantityInStore = _context.SubProducts.Where(e => e.ItemId == ItemId).Sum(e => e.Quantity.Value);
+
+			}
+            else
+            {
+                AvailableQuantityInStore = ItemDetails.Quantity;
+
+			}
             return Page();
         }
         public IActionResult OnGetSingleUpdateItemQuantityForEdit(int ItemId)

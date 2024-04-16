@@ -138,6 +138,9 @@
   <data name="Add Catagory" xml:space="preserve">
     <value>إضافة فئة</value>
   </data>
+  <data name="Add Last Step Of Sub Product" xml:space="preserve">
+    <value>إضافه الخطوه الاخيره للمنتج الفرعي</value>
+  </data>
   <data name="Add Other Catagories" xml:space="preserve">
     <value>اضافة فئات اخري</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Add SubCatagory" xml:space="preserve">
     <value>إضافة فئة فرعية</value>
+  </data>
+  <data name="Add SubProduct" xml:space="preserve">
+    <value>اضافه الخطوه الثانية للمنتج الفرعي</value>
   </data>
   <data name="Add Your Products" xml:space="preserve">
     <value>إضافة منتجاتك</value>
@@ -267,6 +273,9 @@
   <data name="Deleting it SubCategory will remove all of its information from its database." xml:space="preserve">
     <value>سيؤدي حذفك لهذه الفئة الفرعية الي حذف جميع بياناتها من قاعده البيانات</value>
   </data>
+  <data name="Deleting it SubProduct will remove all of its information from its database." xml:space="preserve">
+    <value>حذفك لهذا المنتج الفرعي سيؤدي الي حذف جميع بياناته من قاعده البيانات .</value>
+  </data>
   <data name="Description :" xml:space="preserve">
     <value>تفاصيل المنتج</value>
   </data>
@@ -299,6 +308,9 @@
   </data>
   <data name="Edit Product" xml:space="preserve">
     <value>تعديل المنتج</value>
+  </data>
+  <data name="Edit Sub Product" xml:space="preserve">
+    <value>تعديل المنتج الفرعي</value>
   </data>
   <data name="Edit SubCategory" xml:space="preserve">
     <value>تعديل الفئة الفرعية</value>
@@ -344,6 +356,12 @@
   </data>
   <data name="Enter Iban" xml:space="preserve">
     <value>أدخل رقم ال Iban</value>
+  </data>
+  <data name="Enter Mini Details In Arabic" xml:space="preserve">
+    <value>إدخل وصف مختصر للمنتج باللغه العربيه</value>
+  </data>
+  <data name="Enter Mini Details In English" xml:space="preserve">
+    <value>إدخل وصف مختصر للمنتج باللغه الانجليزية</value>
   </data>
   <data name="Enter new password" xml:space="preserve">
     <value>إدخل الرقم السري الجديد</value>
@@ -480,11 +498,20 @@
   <data name="Manage Items" xml:space="preserve">
     <value>إدارة المنتجات</value>
   </data>
+  <data name="Manage Products" xml:space="preserve">
+    <value>إداره المنتجات</value>
+  </data>
   <data name="Manage Stores" xml:space="preserve">
     <value>إدارة المخازن</value>
   </data>
   <data name="Manage Suppliers" xml:space="preserve">
     <value>ادارة الموردين</value>
+  </data>
+  <data name="Mini Details In Arabic" xml:space="preserve">
+    <value>وصف مختصر للمنتج باللغه العربيه</value>
+  </data>
+  <data name="Mini Details In English" xml:space="preserve">
+    <value>وصف مختصر للمنتج باللغه الانجليزية</value>
   </data>
   <data name="Mini SubCatagories" xml:space="preserve">
     <value>اصغر فئات فرعية</value>
@@ -705,14 +732,29 @@
   <data name="Step One" xml:space="preserve">
     <value>الخطوه الاولي</value>
   </data>
+  <data name="Step One Arabic Title" xml:space="preserve">
+    <value>اسم الخطوه الاولي باللغه العربية</value>
+  </data>
+  <data name="Step One English Title" xml:space="preserve">
+    <value>اسم الخطوه الاولي باللغه الانجليزية</value>
+  </data>
   <data name="Step Two" xml:space="preserve">
     <value>الخطوه الثانية</value>
+  </data>
+  <data name="Step Two Arabic Title" xml:space="preserve">
+    <value>اسم الخطوه الثانيه باللغه العربية</value>
+  </data>
+  <data name="Step Two English Title" xml:space="preserve">
+    <value>اسم الخطوه الثانيه باللغه الانجليزية</value>
   </data>
   <data name="Steps from the beginning of registration until publishing your products" xml:space="preserve">
     <value>الخطوات من بداية التسجيل حتى نشر منتجاتك</value>
   </data>
   <data name="Stores" xml:space="preserve">
     <value>المخازن</value>
+  </data>
+  <data name="Sub Product Details" xml:space="preserve">
+    <value>تفاصيل المنتج الفرعي</value>
   </data>
   <data name="SubCat Arabic Title" xml:space="preserve">
     <value>اسم الفئة الفرعية بالعربية</value>
@@ -806,6 +848,9 @@
   </data>
   <data name="You are about to delete This SubCategory ?" xml:space="preserve">
     <value>هل انت متأكد انك تريد حذف هذه الفئة الفرعية</value>
+  </data>
+  <data name="You are about to delete This SubProduct One ?" xml:space="preserve">
+    <value>هل انت تريد حذف هذا المنتج الفرعي ؟</value>
   </data>
   <data name="Your product will be marketed and sold as quickly as possible" xml:space="preserve">
     <value>منتجك سيسوق ويباع في اسرع وقت</value>

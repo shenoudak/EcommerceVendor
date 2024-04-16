@@ -11,6 +11,8 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing.Imaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Jovera.ViewModels;
+
 namespace Jovera.Areas.Store.Pages.ManageSubProduct
 {
     public class IndexModel : PageModel
@@ -23,15 +25,18 @@ namespace Jovera.Areas.Store.Pages.ManageSubProduct
 		public string QRScan { get; set; }
 		public string url { get; set; }
 		public string QRCodeText { get; set; }
+        public List<StepTwo> StepTwosList = new List<StepTwo>();
 
-		[BindProperty]
-		public SubProduct addSubProduct { get; set; }
+        [BindProperty]
+		public AddSubProductVm addSubProduct { get; set; }
 
 
 		
-		public static int _itemId = 0;
+		public static int staticStepOneSubProdId = 0;
+		public static int staticStepOneId = 0;
+		public static int staticItemIdForUpdateStatus = 0;
        // [BindProperty]
-        public SubProduct addSubProductObj { get; set; }
+        public MiniSubProduct addSubProductObj { get; set; }
 		
 		[BindProperty]
 		public DataTablesRequest DataTablesRequest { get; set; }
@@ -42,19 +47,26 @@ namespace Jovera.Areas.Store.Pages.ManageSubProduct
 			_hostEnvironment = hostEnvironment;
 			_toastNotification = toastNotification;
 			_userManager = userManager;
-			addSubProduct = new SubProduct();
-            addSubProductObj = new SubProduct();
+			addSubProduct = new AddSubProductVm();
+            addSubProductObj = new MiniSubProduct();
 		}
-		public void OnGet(int itemId)
+		public void OnGet(int stepOneSubProductId)
 		{
-			var item = _context.Items.Where(e=>e.ItemId==itemId).FirstOrDefault();
-			if (item == null)
+			var SubProductStepObj = _context.SubProductStepOnes.Where(e=>e.SubProductStepOneId== stepOneSubProductId&&e.IsDeleted==false).FirstOrDefault();
+			if (SubProductStepObj == null)
 			{
 				Redirect("/PageNotFound");
 			}
-            _itemId = itemId;
+            
+            staticStepOneSubProdId = stepOneSubProductId;
 			url = $"{this.Request.Scheme}://{this.Request.Host}";
-		}
+            addSubProduct.SubProductStepOneId =staticStepOneSubProdId;
+            addSubProduct.StepOneId = SubProductStepObj.StepOneId;
+            staticStepOneId = SubProductStepObj.StepOneId;
+            staticItemIdForUpdateStatus = SubProductStepObj.ItemId;
+            //StepTwosList = _context.StepTwos.Where(e => e.StepOneId == SubProductStepObj.StepOneId&&e.IsDeleted==false).ToList();
+
+        }
 
 		
 
@@ -62,21 +74,19 @@ namespace Jovera.Areas.Store.Pages.ManageSubProduct
 		{
 			
 
-			var recordsTotal = _context.SubProducts.Where(e => e.ItemId == _itemId).Count();
+			var recordsTotal = _context.MiniSubProducts.Where(e => e.SubProductStepOneId == staticStepOneSubProdId&&e.IsDeleted==false).Count();
 
-			var customersQuery = _context.SubProducts.Include(e=>e.Color).Include(e=>e.Size).Include(e=>e.Item).Where(e => e.ItemId == _itemId).Select(i => new
+			var customersQuery = _context.MiniSubProducts.Include(e=>e.StepTwo).Include(e=>e.SubProductStepOne).ThenInclude(e=>e.StepOne).Where(e => e.SubProductStepOneId == staticStepOneSubProdId&&e.IsDeleted == false).Select(i => new
 			{
-				ItemId = i.ItemId,
-				SubProductId = i.SubProductId,
-				ColorId = i.ColorId,
-				ColorTLAR = i.Color.ColorTLAR,
-				ColorTLEN = i.Color.ColorTLEN,
-				SizeId = i.SizeId,
-				SizeTLAR = i.Size.SizeTLAR,
-				SizeTLEN = i.Size.SizeTLEN,
+                MiniSubProductId = i.MiniSubProductId,
+                IsDeleted = i.IsDeleted,
+                ItemQRCode = i.ItemQRCode,
+                StepOneTLAR = i.SubProductStepOne.StepOne.StepOneTLAR,
+                StepOneTLEN = i.SubProductStepOne.StepOne.StepOneTLEN,
+                SubProductStepOneId = i.SubProductStepOneId,
+                StepTwoTLAR = i.StepTwo.StepTwoTLAR,
+                StepTwoTLEN = i.StepTwo.StepTwoTLEN,
 				Quantity = i.Quantity,
-				ItemTitleAr = i.Item.ItemTitleAr,
-				ItemTitleEn = i.Item.ItemTitleEn,
 			}).AsQueryable();
 
 
@@ -84,8 +94,8 @@ namespace Jovera.Areas.Store.Pages.ManageSubProduct
 			if (!string.IsNullOrWhiteSpace(searchText))
 			{
 				customersQuery = customersQuery.Where(s =>
-					s.ColorTLAR.ToUpper().Contains(searchText) ||
-					s.SizeTLAR.ToUpper().Contains(searchText)
+					s.StepTwoTLEN.ToUpper().Contains(searchText) ||
+					s.StepTwoTLAR.ToUpper().Contains(searchText)
 				);
 			}
 
@@ -112,35 +122,138 @@ namespace Jovera.Areas.Store.Pages.ManageSubProduct
 				data = data
 			});
 		}
+        public IActionResult OnGetSingleMiniSubProductForView(int MiniSubProductId)
+        {
+            var Result = _context.MiniSubProducts.Include(e=>e.StepTwo).Include(e=>e.SubProductStepOne).ThenInclude(e=>e.StepOne).Where(c => c.MiniSubProductId == MiniSubProductId).Select(i => new
+            {
+                ItemQRCode= i.ItemQRCode,
+                StepTwoTLAR = i.StepTwo.StepTwoTLAR,
+                StepTwoTLEN = i.StepTwo.StepTwoTLEN,
+                StepOneTLAR = i.SubProductStepOne.StepOne.StepOneTLAR,
+                StepOneTLEN = i.SubProductStepOne.StepOne.StepOneTLEN,
+                Quantity = i.Quantity,
+            }).FirstOrDefault();
+            return new JsonResult(Result);
+        }
+        public IActionResult OnGetSingleMiniSubProductForEdit(int MiniSubProductId)
+        {
+            var MiniSubProduct = _context.MiniSubProducts.Where(c => c.MiniSubProductId == MiniSubProductId).FirstOrDefault();
+            addSubProduct.Quantity = MiniSubProduct.Quantity;
+            addSubProduct.StepTwoId = MiniSubProduct.StepTwoId;
+            addSubProduct.SubProductStepOneId = MiniSubProduct.SubProductStepOneId;
+            addSubProduct.MiniSubProductId = MiniSubProduct.MiniSubProductId;
+            addSubProduct.StepOneId = staticStepOneId;
+            return new JsonResult(addSubProduct);
+        }
+        public async Task<IActionResult> OnPostEditSubProduct(int MiniSubProductId)
+        {
 
+            try
+            {
+                var model = _context.MiniSubProducts.Where(c => c.MiniSubProductId == MiniSubProductId).FirstOrDefault();
+                if (model == null)
+                {
+                    _toastNotification.AddErrorToastMessage("Object Not Found");
+
+                    return Redirect($"/Store/ManageSubProduct/Index?stepOneSubProductId={staticStepOneSubProdId}");
+
+                }
+                model.Quantity = addSubProduct.Quantity;
+                model.StepTwoId = addSubProduct.StepTwoId;
+                //model.MiniSubProductId = addSubProduct.MiniSubProductId;
+                //model.SubProductStepOneId = addSubProduct.SubProductStepOneId;
+                var UpdatedMiniSubProduct = _context.MiniSubProducts.Attach(model);
+
+                UpdatedMiniSubProduct.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                _context.SaveChanges();
+
+                _toastNotification.AddSuccessToastMessage("Sub Product Edited Successfully");
+
+
+
+            }
+            catch (Exception)
+            {
+                _toastNotification.AddErrorToastMessage("Something went Error");
+
+            }
+            return Redirect($"/Store/ManageSubProduct/Index?stepOneSubProductId={staticStepOneSubProdId}");
+        }
+        public IActionResult OnGetSingleMiniSubProductForDelete(int MiniSubProductId)
+        {
+            var Result = _context.MiniSubProducts.Where(c => c.MiniSubProductId == MiniSubProductId).FirstOrDefault();
+            return new JsonResult(Result);
+        }
+        public async Task<IActionResult> OnPostDeleteSubProduct(int MiniSubProductId)
+        {
+            try
+            {
+                var model = _context.MiniSubProducts.Where(c => c.MiniSubProductId == MiniSubProductId).FirstOrDefault();
+                if (model == null)
+                {
+                    _toastNotification.AddErrorToastMessage("Object Not Found");
+
+                    return Redirect($"/Store/ManageSubProduct/Index?stepOneSubProductId={staticStepOneSubProdId}");
+
+                }
+                model.IsDeleted = true;
+                var UpdatedMini = _context.MiniSubProducts.Attach(model);
+
+                UpdatedMini.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                _context.SaveChanges();
+
+                _toastNotification.AddSuccessToastMessage("Sub Product Deleted Successfully");
+
+
+
+            }
+            catch (Exception)
+            {
+                _toastNotification.AddErrorToastMessage("Something went Error");
+
+            }
+
+            return Redirect($"/Store/ManageSubProduct/Index?stepOneSubProductId={staticStepOneSubProdId}");
+
+
+        }
         public async Task<IActionResult> OnPostAddSubProduct()
         {
 
             try
             {
-				var existedSubProduct = _context.SubProducts.Where(e => e.ItemId ==_itemId && e.ColorId == addSubProduct.ColorId && e.SizeId == addSubProduct.SizeId).FirstOrDefault();
+				var existedSubProduct = _context.MiniSubProducts.Where(e => e.StepTwoId ==addSubProduct.StepTwoId && e.SubProductStepOneId ==staticStepOneSubProdId&&e.IsDeleted==false).FirstOrDefault();
 				if (existedSubProduct != null)
 				{
                     _toastNotification.AddErrorToastMessage("SubProduct in Already Exist Before,Can Update In Its Quantity");
-                    return Redirect($"/Store/ManageSubProduct/Index?itemid={_itemId}");
+                    return Redirect($"/Store/ManageSubProduct/Index?stepOneSubProductId={staticStepOneSubProdId}");
                 }
-                var user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return Redirect("/Login");
+                //var user = await _userManager.GetUserAsync(User);
+                //if (user == null)
+                //{
+                //    return Redirect("/Login");
 
-                }
-                var vendor = _context.Stores.Where(e => e.Email == user.Email).FirstOrDefault();
-                if (vendor == null)
+                //}
+                //var vendor = _context.Stores.Where(e => e.Email == user.Email).FirstOrDefault();
+                //if (vendor == null)
+                //{
+                //    return Redirect("/Login");
+                //}
+                var addMiniSub = new MiniSubProduct()
                 {
-                    return Redirect("/Login");
-                }
-				addSubProduct.ItemId = _itemId;
-				addSubProduct.StoreId = vendor.StoreId;
-                _context.SubProducts.Add(addSubProduct);
+                    Quantity= addSubProduct.Quantity,
+                    StepTwoId=addSubProduct.StepTwoId,
+                    SubProductStepOneId=staticStepOneSubProdId
+
+
+                };
+				
+                _context.MiniSubProducts.Add(addMiniSub);
                 _context.SaveChanges();
-                 GenerateBarCode(addSubProduct.SubProductId);
-
+                 GenerateBarCode(addMiniSub.MiniSubProductId);
+                
 
 
             }
@@ -149,11 +262,11 @@ namespace Jovera.Areas.Store.Pages.ManageSubProduct
 
                 _toastNotification.AddErrorToastMessage("Something went wrong");
             }
-            return Redirect($"/Store/ManageSubProduct/Index?itemid={_itemId}");
+            return Redirect($"/Store/ManageSubProduct/Index?stepOneSubProductId={staticStepOneSubProdId}");
         }
         public void GenerateBarCode(int ItemId)
         {
-            var Event = _context.SubProducts.Where(e => e.SubProductId == ItemId).FirstOrDefault();
+            var Event = _context.MiniSubProducts.Where(e => e.MiniSubProductId == ItemId).FirstOrDefault();
             if (Event != null)
             {
                 Event.ItemQRCode = ItemId.ToString();
@@ -176,8 +289,12 @@ namespace Jovera.Areas.Store.Pages.ManageSubProduct
             }
             //nurseryMember.Banner = uniqePictureName;
             Event.ItemQRCode = "Images/Item/" + uniqePictureName;
-            var UpdatedEvent = _context.SubProducts.Attach(Event);
+            var UpdatedEvent = _context.MiniSubProducts.Attach(Event);
             UpdatedEvent.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            var ItemModel = _context.Items.Where(e => e.ItemId == staticItemIdForUpdateStatus).FirstOrDefault();
+            ItemModel.ItemStatusId = 2;
+            var UpdatedItem = _context.Items.Attach(ItemModel);
+            UpdatedItem.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("SubProduct Added Successfully");
 

@@ -4,6 +4,7 @@ using Jovera.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jovera.Migrations.CRMDB
 {
     [DbContext(typeof(CRMDBContext))]
-    partial class CRMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240415102233_changeSubProductSchemaModel")]
+    partial class changeSubProductSchemaModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,12 +184,6 @@ namespace Jovera.Migrations.CRMDB
                     b.Property<string>("ItemImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ItemMiniDetailsAr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ItemMiniDetailsEn")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ItemPrice")
                         .HasColumnType("float");
 
@@ -321,6 +317,9 @@ namespace Jovera.Migrations.CRMDB
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MiniSubProductId"), 1L, 1);
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -719,9 +718,6 @@ namespace Jovera.Migrations.CRMDB
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubProductStepOneId"), 1L, 1);
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

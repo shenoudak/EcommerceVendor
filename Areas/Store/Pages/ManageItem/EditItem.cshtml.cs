@@ -90,6 +90,8 @@ namespace Jovera.Areas.Store.Pages.ManageItem
 
                 DbItem.ItemTitleAr = EditItem.ItemTitleAr;
                 DbItem.ItemTitleEn = EditItem.ItemTitleEn;
+                DbItem.ItemMiniDetailsAr = EditItem.ItemMiniDetailsAr;
+                DbItem.ItemMiniDetailsEn = EditItem.ItemMiniDetailsEn;
                 DbItem.ItemDescriptionAr = EditItem.ItemDescriptionAr;
                 DbItem.ItemDescriptionEn = EditItem.ItemDescriptionEn;
                 //DbItem.IsActive = EditItem.IsActive;

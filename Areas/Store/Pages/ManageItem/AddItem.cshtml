@@ -73,6 +73,7 @@
                                             <span asp-validation-for="AddItem.ItemTitleEn" class="text-danger"></span>
                                         </div>
                                     </div>
+                                  
                                     <div class="col-lg-6">
                                         <div>
                                             <label for="AddItem.OurSellingPrice" class="form-label">@sharedResource["Our Selling Price"]</label>
@@ -83,15 +84,29 @@
                                     <div class="col-lg-6">
                                         <div>
                                             <label for="AddItem.SellingPriceForCustomer" class="form-label">@sharedResource["Selling Price To Customer"]</label>
-                                            <input type="number" min="1" asp-for="AddItem.SellingPriceForCustomer" id="company_name-field" class="form-control" placeholder="@sharedResource["Enter Selling Price To Customer"]" required />
+                                            <input type="number" min="1" asp-for="AddItem.SellingPriceForCustomer"  class="form-control" placeholder="@sharedResource["Enter Selling Price To Customer"]" required />
                                             <span asp-validation-for="AddItem.SellingPriceForCustomer" class="text-danger"></span>
                                         </div>
                                     </div>
-                                  
+                                    <div class="col-lg-6">
+                                        <div>
+                                            <label for="AddItem.ItemMiniDetailsAr" class="form-label">@sharedResource["Mini Details In Arabic"]</label>
+
+                                            <textarea type="text" asp-for="AddItem.ItemMiniDetailsAr" class="form-control" placeholder="@sharedResource["Enter Mini Details In Arabic"]" required></textarea>
+                                            <span asp-validation-for="AddItem.ItemMiniDetailsAr" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div>
+                                            <label for="AddItem.ItemMiniDetailsEn" class="form-label">@sharedResource["Mini Details In English"]</label>
+                                            <textarea type="text" asp-for="AddItem.ItemMiniDetailsEn" class="form-control" placeholder="@sharedResource["Enter Mini Details In English"]"></textarea>
+                                            <span asp-validation-for="AddItem.ItemMiniDetailsEn" class="text-danger"></span>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div>
                                             <label for="AddItem.ItemDescriptionAr" class="form-label">@sharedResource["Arabic Description"]</label>
-                                            <textarea id="textareacontent" asp-for="AddItem.ItemDescriptionAr" class="form-control" placeholder="@sharedResource["Enter Arabic Description"]"></textarea>
+                                            <textarea id="textareacontent" asp-for="AddItem.ItemDescriptionAr"  class="form-control textAreaCl" placeholder="@sharedResource["Enter Arabic Description"]"></textarea>
                                             <span asp-validation-for="AddItem.ItemDescriptionAr" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -100,7 +115,7 @@
                                     <div class="col-lg-12">
                                         <div>
                                             <label for="AddItem.ItemDescriptionEn" class="form-label">@sharedResource["English Description"]</label>
-                                            <textarea id="textareacontent" asp-for="AddItem.ItemDescriptionEn" class="form-control" placeholder="@sharedResource["Enter English Description"]"></textarea>
+                                            <textarea id="textareacontent" asp-for="AddItem.ItemDescriptionEn" class="form-control textAreaCl" placeholder="@sharedResource["Enter English Description"]"></textarea>
                                             <span asp-validation-for="AddItem.ItemDescriptionEn" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -179,6 +194,56 @@
                                         </div>
                                     </div>
                                 </div>
+                               @* <div class="row" id="showRowTable" style="display:none" >
+                                    <div class="col-lg-12">
+                                        <div class="card" id="List">
+                                            <div class="card-header border-0">
+                                               
+
+                                                <div class="row g-4 align-items-center">
+                                                   
+                                                    <div class="col-sm-auto ms-auto">
+                                                        <div class="hstack gap-2">
+
+                                                            <button type="button" class="btn btn-success add-btn"
+                                                                    data-bs-toggle="modal" id="create-btn"
+                                                                    data-bs-target="#AddModal">
+                                                                <i class="ri-add-line align-bottom me-1"></i> @sharedResource["Add SubProduct"]
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div>
+                                                    <div class="table-responsive table-card">
+                                                        <table id="myTable" class="table  dt-responsive nowrap  align-middle" style="width:100%">
+                                                            <thead class="table-light">
+                                                                <tr>
+
+
+                                                                    <th data-ordering="false">@sharedResource["Arabic Title"]</th>
+                                                                    <th data-ordering="false">@sharedResource["English Title"]</th>
+                                                                    <th data-ordering="false">@sharedResource["Step One"]</th>
+                                                                    <th data-ordering="false">@sharedResource["Step Two"]</th>
+                                                                    <th data-ordering="false">@sharedResource["Quantity"]</th>
+                                                                    <th data-ordering="false">@sharedResource["Actions"]</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!--end modal-->
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>*@
                                 <!--end row-->
                             </div>
 
@@ -202,6 +267,7 @@
 </div>
 <!--end row-->
 <!--datatable js-->
+@*<partial name="_AddPopup" model="@Model.addSubProduct" view-data="ViewData" />*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section scripts{
@@ -214,7 +280,7 @@
 
     <script>
         tinymce.init({
-            selector: 'textarea',
+            selector: '.textAreaCl',
             statusbar: false,
             promotion: false,
             branding: false,
@@ -232,13 +298,18 @@
         }
         const checkbox = document.getElementById('checkboxId');
         const box = document.getElementById('itemQuaintityId');
+        //const showRowTableId = document.getElementById('showRowTable');
 
         checkbox.addEventListener('click', function handleClick() {
             if (checkbox.checked) {
               
                  box.style.display = 'none';
+                //showRowTableId.style.display = 'block';
+                
             } else {
                 box.style.display = 'block';
+                //showRowTableId.style.display = 'none';
+
             }
         });
     </script>
